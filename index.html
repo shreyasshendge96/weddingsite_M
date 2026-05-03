@@ -175,6 +175,47 @@ nav{position:fixed;top:0;left:0;right:0;z-index:5000;padding:1rem 2rem;display:f
 .hero-scroll span{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.4rem}
 .scroll-line{width:1px;height:45px;background:linear-gradient(180deg,var(--gold),transparent);margin:0 auto;animation:scrollPulse 2s infinite}
 
+/* COUNTDOWN */
+.hero-countdown {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 1.5s forwards;
+  animation-fill-mode: both;
+}
+.cd-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(18, 5, 8, 0.6);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  padding: 0.8rem 1.2rem;
+  border-radius: 4px;
+  min-width: 80px;
+  backdrop-filter: blur(4px);
+}
+.cd-num {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 2rem;
+  color: var(--cream);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+  text-shadow: 0 0 15px rgba(201, 168, 76, 0.5);
+}
+.cd-label {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+@media (max-width: 600px) {
+  .hero-countdown { gap: 0.8rem; }
+  .cd-box { padding: 0.6rem 0.8rem; min-width: 65px; }
+  .cd-num { font-size: 1.5rem; }
+}
+
 /* GOLD GLOW */
 .gold-glow{animation:goldGlow 3s ease-in-out infinite}
 @keyframes goldGlow{0%,100%{text-shadow:0 0 20px rgba(201,168,76,.3)}50%{text-shadow:0 0 60px rgba(201,168,76,.9),0 0 100px rgba(201,168,76,.35)}}
@@ -389,7 +430,7 @@ footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.2);padding:5
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">म ♥ सि</div>
+  <div class="nav-logo" id="nav-logo">म ♥ सि</div>
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#bride" id="nav-bride">वधू</a></li>
@@ -425,6 +466,13 @@ footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.2);padding:5
       <div class="hd-line"></div>
       <span class="hd-text" id="hd">बुधवार, १३ मे २०२६ · ड्रिम पॅलेस · सोलापूर</span>
       <div class="hd-line"></div>
+    </div>
+    <!-- COUNTDOWN -->
+    <div class="hero-countdown" id="countdown">
+      <div class="cd-box"><span class="cd-num" id="cd-d">00</span><span class="cd-label" id="cd-dl">दिवस</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-h">00</span><span class="cd-label" id="cd-hl">तास</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-m">00</span><span class="cd-label" id="cd-ml">मिनिटे</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-s">00</span><span class="cd-label" id="cd-sl">सेकंद</span></div>
     </div>
   </div>
   <div class="hero-scroll">
@@ -558,7 +606,7 @@ footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.2);padding:5
 </section>
 
 <!-- ===== FAMILY ===== -->
-<section id="family">
+<section id="family" hidden>
   <div class="s-eyebrow reveal" id="fam-ey">परिवार</div>
   <h2 class="s-title reveal" id="fam-ti">आपले स्नेहांकित</h2>
   <div class="s-divider reveal"><div class="dl"></div><div class="dd"></div><div class="dl r"></div></div>
@@ -617,8 +665,8 @@ footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.2);padding:5
   <div class="map-wrap">
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60944.08!2d75.8680!3d17.6860!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc5fedb1d35a5ff%3A0x2b89ac8e07c28e8e!2sSolapur%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1714000000000" allowfullscreen loading="lazy"></iframe>
     <div class="map-card">
-      <h3>ड्रिम पॅलेस बँक्वेट हॉल</h3>
-      <p>पोलीस कल्याण केंद्र,<br>सरस्वती चौक, मुरारजी पेठ,<br>सोलापूर — १३ मे २०२६</p>
+      <h3 id="map-ti">ड्रिम पॅलेस बँक्वेट हॉल</h3>
+      <p id="map-addr">पोलीस कल्याण केंद्र,<br>सरस्वती चौक, मुरारजी पेठ,<br>सोलापूर — १३ मे २०२६</p>
       <a href="https://maps.google.com/?q=Dream+Palace+Solapur" target="_blank" class="glow-btn"><span id="map-btn">दिशानिर्देश मिळवा →</span></a>
     </div>
   </div>
@@ -657,7 +705,7 @@ footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.2);padding:5
 
 <!-- FOOTER -->
 <footer>
-  <div class="f-mono">म ♥ सि</div>
+  <div class="f-mono" id="ft-logo">म ♥ सि</div>
   <div class="f-msg" id="ft-msg">एकत्र असणे हेच आपले आवडते ठिकाण</div>
   <div class="f-line"></div>
   <p class="f-tag" id="ft-tag">मयुरी & सिद्धराज · १३ मे २०२६ · ड्रिम पॅलेस, सोलापूर</p>
@@ -847,11 +895,11 @@ const T = {
     he:'शुभविवाह निमंत्रण', hn:'मयुरी<br><span class="amp">&amp;</span>सिद्धराज',
     ht:'दोन जीव, एक आयुष्य ✦', hd:'बुधवार, १३ मे २०२६ · ड्रिम पॅलेस · सोलापूर',
     'b-ey':'वधूची ओळख','b-ti':'चि. सौ. कां. मयुरी','b-badge':'चि.सौ.कां. मयुरी गुंड',
-    'b-role':'वधू','b-name':'मयुरी','b-nick':'प्रेमाची राणी ✦',
+    'b-role':'वधू','b-name':'मयुरी','b-nick':' ✦',
     'b-para':'कै. ज्योतीबा रामभाऊ गुंड यांची नात व सौ. वृषाली व श्री. विजय ज्योतीबा गुंड, रा. सोलापूर यांची ज्येष्ठ सुकन्या — मयुरी एक सुंदर, संस्कारी व प्रेमळ कन्या आहे.',
     'b-i1':'सोलापूर, महाराष्ट्र','b-i2':'गुंड परिवाराची ज्येष्ठ कन्या','b-i3':'सौ. वृषाली व श्री. विजय ज्योतीबा गुंड यांची मुलगी',
     'g-ey':'वराची ओळख','g-ti':'चि. सिद्धराज','g-badge':'चि. सिद्धराज नलावडे',
-    'g-role':'वर','g-name':'सिद्धराज','g-nick':'तिचा जीवनसाथी ✦',
+    'g-role':'वर','g-name':'सिद्धराज','g-nick':'✦',
     'g-para':'कै. सिद्धेश्वर भगवान नलावडे यांचे नातू व सौ. साधना व श्री. रवींद्र सिद्धेश्वर नलावडे, रा. कुईवाडी यांचे सुपुत्र — सिद्धराज एक समंजस, प्रेमळ व सुसंस्कृत युवक आहे.',
     'g-i1':'कुईवाडी, महाराष्ट्र','g-i2':'नलावडे परिवाराचे सुपुत्र','g-i3':'सौ. साधना व श्री. रवींद्र नलावडे यांचा मुलगा',
     'st-ey':'आपली प्रेमकथा','st-ti':'प्रेमाच्या आठवणी',
@@ -873,6 +921,10 @@ const T = {
     'rsvp-ey':'आपले येणे नक्की करा','rsvp-ti':'उपस्थिती नोंदवा',
     rl1:'आपले नाव',rl2:'मोबाइल नंबर',rl3:'ईमेल पत्ता',rl4:'पाहुण्यांची संख्या',rl5:'येणार का?',rl6:'शुभेच्छा संदेश',
     'sub-txt':'प्रेमाने पाठवा ♥','mb-p':'← मागे','mb-n':'पुढे →',
+    'nav-logo': 'म ♥ सि', 'ft-logo': 'म ♥ सि',
+    'map-ti': 'ड्रिम पॅलेस बँक्वेट हॉल',
+    'map-addr': 'पोलीस कल्याण केंद्र,<br>सरस्वती चौक, मुरारजी पेठ,<br>सोलापूर — १३ मे २०२६',
+    'cd-dl': 'दिवस', 'cd-hl': 'तास', 'cd-ml': 'मिनिटे', 'cd-sl': 'सेकंद',
     'ft-msg':'एकत्र असणे हेच आपले आवडते ठिकाण','ft-tag':'मयुरी & सिद्धराज · १३ मे २०२६ · ड्रिम पॅलेस, सोलापूर',
     'ft-sub':'आपल्या प्रेमाने व आशीर्वादाने आमचे आयुष्य भरून जाईल',
   },
@@ -883,11 +935,11 @@ const T = {
     he:'Wedding Invitation', hn:'Mayuri<br><span class="amp">&amp;</span>Siddhraj',
     ht:'Two souls, one life ✦', hd:'Wednesday, 13 May 2026 · Dream Palace · Solapur',
     'b-ey':'Meet the Bride','b-ti':'Chi. Sau. Kan. Mayuri','b-badge':'Mayuri Gund',
-    'b-role':'Bride','b-name':'Mayuri','b-nick':'Princess of Love ✦',
+    'b-role':'Bride','b-name':'Mayuri','b-nick':' ✦',
     'b-para':'Granddaughter of Late Jyotiba Rambhau Gund, and eldest daughter of Sau. Vrushali & Shri. Vijay Jyotiba Gund, Solapur — Mayuri is a beautiful, cultured and loving daughter.',
     'b-i1':'Solapur, Maharashtra','b-i2':'Elder daughter of Gund family','b-i3':'Daughter of Sau. Vrushali & Shri. Vijay Gund',
     'g-ey':'Meet the Groom','g-ti':'Chi. Siddhraj','g-badge':'Siddhraj Nalavade',
-    'g-role':'Groom','g-name':'Siddhraj','g-nick':'Her Life Partner ✦',
+    'g-role':'Groom','g-name':'Siddhraj','g-nick':'✦',
     'g-para':'Grandson of Late Siddheshwar Bhagwan Nalavade, and son of Sau. Sadhana & Shri. Ravindra Siddheshwar Nalavade, Kuiwadi — Siddhraj is a wise, loving and well-cultured young man.',
     'g-i1':'Kuiwadi, Maharashtra','g-i2':'Son of Nalavade family','g-i3':'Son of Sau. Sadhana & Shri. Ravindra Nalavade',
     'st-ey':'Our Journey','st-ti':'Memories of Love',
@@ -909,6 +961,10 @@ const T = {
     'rsvp-ey':'Confirm Your Presence','rsvp-ti':'RSVP',
     rl1:'Your Name',rl2:'Mobile Number',rl3:'Email Address',rl4:'No. of Guests',rl5:'Will you attend?',rl6:'Your Wishes',
     'sub-txt':'Send with Love ♥','mb-p':'← Prev','mb-n':'Next →',
+    'nav-logo': 'M ♥ S', 'ft-logo': 'M ♥ S',
+    'map-ti': 'Dream Palace Banquet Hall',
+    'map-addr': 'Police Welfare Centre,<br>Saraswati Chowk, Murarji Peth,<br>Solapur — 13 May 2026',
+    'cd-dl': 'Days', 'cd-hl': 'Hours', 'cd-ml': 'Minutes', 'cd-sl': 'Seconds',
     'ft-msg':'Together is our favourite place to be','ft-tag':'Mayuri & Siddhraj · 13 May 2026 · Dream Palace, Solapur',
     'ft-sub':'Your love and blessings will fill our life with joy',
   }
@@ -923,6 +979,35 @@ function toggleLang() {
   });
   document.documentElement.lang = isMarathi ? 'mr' : 'en';
 }
+
+// ======= COUNTDOWN =======
+function updateCountdown() {
+  const weddingDate = new Date("May 13, 2026 12:23:00").getTime();
+  const now = new Date().getTime();
+  const distance = weddingDate - now;
+
+  if (distance < 0) {
+    var cdEl = document.getElementById("countdown");
+    if(cdEl) cdEl.style.display = "none";
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  var elD = document.getElementById("cd-d");
+  if(elD) elD.innerText = days.toString().padStart(2, '0');
+  var elH = document.getElementById("cd-h");
+  if(elH) elH.innerText = hours.toString().padStart(2, '0');
+  var elM = document.getElementById("cd-m");
+  if(elM) elM.innerText = minutes.toString().padStart(2, '0');
+  var elS = document.getElementById("cd-s");
+  if(elS) elS.innerText = seconds.toString().padStart(2, '0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
 </script>
 
 <script>
